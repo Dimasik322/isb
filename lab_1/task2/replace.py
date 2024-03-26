@@ -5,14 +5,13 @@ from reader import txt_reader
 logging.basicConfig(level=logging.INFO)
 
 
-def replace_dict(path : str, key : dict) -> None:
+def replace_dict(text : str, key : dict) -> None:
     """Replaces symbols in str by key.
     :param path:
     :param key:
     :return:
     """
     try:
-        text = txt_reader(path)
         decrypted_text = ""
         for char in text:
             if (char in key):

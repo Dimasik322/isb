@@ -5,13 +5,12 @@ from reader import txt_reader
 logging.basicConfig(level=logging.INFO)
 
 
-def char_frequency(path : str) -> dict:
-    """Does frequency analysis of text in file.
+def char_frequency(text : str) -> dict:
+    """Does frequency analysis of text.
     :param path:
     :return dict:
     """
     try:
-        text = txt_reader(path)
         frequency = {}
         count = 0
         for i in text:
