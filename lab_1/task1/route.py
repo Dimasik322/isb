@@ -6,13 +6,10 @@ logging.basicConfig(level=logging.INFO)
 
 
 def route_transposition(path : str, keyword : str) -> str:
-    """Function encrypts original text file 
-    using the route transposition method by specified key.
-    params:
-        file_name: original file path
-        key: string object for the method
-    return:
-        None
+    """Encrypts text from file by route transposition method.
+    :param path:
+    :param keyword:
+    :return str:
     """
     try:
         route = [keyword.index(char) for char in sorted(keyword)]

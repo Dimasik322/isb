@@ -1,14 +1,13 @@
 import os
 import logging
-import constants
 
 from sys import argv
 from reader import json_reader
 from writer import write_decrypted, write_frequency
-from constants import PATHS
+from constants import PATHS, ALPHABET
 
 logging.basicConfig(level=logging.INFO)
-KEY = constants.ALPHABET
+KEY = ALPHABET
 
 
 if __name__ == "__main__":

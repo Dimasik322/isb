@@ -6,13 +6,10 @@ logging.basicConfig(level=logging.INFO)
 
 
 def caesar_encrypt(path : str, shift : int) -> str:
-    """Function encrypts original text file 
-    using the Caesar method by specified shift.
-    params:
-        file_name: original file path
-        shift: int number for the method
-    return:
-        str
+    """Encrypts text from file using Caesar method.
+    :param path:
+    "param shift:
+    :return str:
     """
     try:
         text = txt_reader(path)

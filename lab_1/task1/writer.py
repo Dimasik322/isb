@@ -7,6 +7,13 @@ logging.basicConfig(level=logging.INFO)
 
 
 def write_caesar(path : str, key : int, path_encrypt: str, path_key: str) -> None:
+    """Decrypts by Caesar method and writes str and key into files.
+    :param path:
+    :param key:
+    :param path_encrypt:
+    :param path_key:
+    :return:
+    """
     try:
         with open(path_encrypt, 'w', encoding='utf-8') as encrypt_file:
             encrypt_file.write(caesar_encrypt(path, key))
@@ -17,6 +24,13 @@ def write_caesar(path : str, key : int, path_encrypt: str, path_key: str) -> Non
         logging.error(f'Saving error: {exc}\n')
 
 def write_route(path : str, keyword : str, path_encrypt: str, path_key: str) -> None:
+    """Decrypts by route transposition method and writes str and key into files.
+    :param path:
+    :param key:
+    :param path_encrypt:
+    :param path_key:
+    :return:
+    """
     try:
         with open(path_encrypt, 'w', encoding='utf-8') as encrypt_file:
             encrypt_file.write(route_transposition(path, keyword))

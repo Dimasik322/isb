@@ -6,6 +6,10 @@ logging.basicConfig(level=logging.INFO)
 
 
 def char_frequency(path : str) -> dict:
+    """Does frequency analysis of text in file.
+    :param path:
+    :return dict:
+    """
     try:
         text = txt_reader(path)
         frequency = {}
