@@ -1,5 +1,7 @@
 import logging
 
+from reader import txt_reader
+
 logging.basicConfig(level=logging.INFO)
 
 
@@ -19,8 +21,7 @@ def route_transposition(path : str, keyword : str) -> str:
                 route[i + 1] = keyword.index(keyword[route[i]], route[i] + 1)
         width = max(route) + 1
         encrypted_text=""
-        with open(path, 'r', encoding='utf-8') as file:
-            text = file.read().replace(' ', '').replace('\n', '')
+        text = txt_reader(path)
         height = int((len(text)) / (width + 1)) + 1
         matrix = [[text[((width * j) + i) % len(text)] for i in range(width)] for j in range(height)]
         for i in route:
