@@ -7,19 +7,15 @@ logging.basicConfig(level=logging.INFO)
 
 def char_frequency(text : str) -> dict:
     """Does frequency analysis of text.
-    :param path:
-    :return dict:
+    :param text: str of text that is needed to analyse 
+    :return: dict of symbol : frequency
     """
     try:
         frequency = {}
-        count = 0
-        for i in text:
-            count += 1
-            if i in frequency:
-                frequency[i] += 1
-            else:
-                frequency[i] = 1
+        for char in text:
+            frequency[char] = text.count(char)
+        frequency = {key : float(value) / len(text) for key, value in frequency.items()}
         frequency = sorted(frequency.items(), key=lambda item : item[1], reverse=True)
         return frequency
     except Exception as exc:
-            logging.error(f"Frequency analisys error: {exc}")
+        logging.error(f"Frequency analisys error: {exc}")

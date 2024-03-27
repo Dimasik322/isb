@@ -7,8 +7,8 @@ logging.basicConfig(level=logging.INFO)
 
 def replace_dict(text : str, key : dict) -> None:
     """Replaces symbols in str by key.
-    :param path:
-    :param key:
+    :param text: str of text
+    :param key: dict of replacements
     :return:
     """
     try:

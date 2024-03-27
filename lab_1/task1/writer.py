@@ -8,11 +8,11 @@ logging.basicConfig(level=logging.INFO)
 
 
 def write_caesar(path : str, key : int, path_encrypt: str, path_key: str) -> None:
-    """Decrypts by Caesar method and writes str and key into files.
-    :param path:
-    :param key:
-    :param path_encrypt:
-    :param path_key:
+    """Encrypts by Caesar method and writes str and key into files.
+    :param path: path to txt file that is needed to encrypt
+    :param key: key for Caesar method
+    :param path_encrypt: path for writing encrypted text
+    :param path_key: path for writing keyword for encrypted text
     :return:
     """
     try:
@@ -26,11 +26,11 @@ def write_caesar(path : str, key : int, path_encrypt: str, path_key: str) -> Non
         logging.error(f'Saving error: {exc}\n')
 
 def write_route(path : str, keyword : str, path_encrypt: str, path_key: str) -> None:
-    """Decrypts by route transposition method and writes str and key into files.
-    :param path:
-    :param key:
-    :param path_encrypt:
-    :param path_key:
+    """Encrypts by route transposition method and writes str and key into files.
+    :param path: path to txt file that is needed to encrypt
+    :param keyword: keyword for route transposition method
+    :param path_encrypt: path for writing encrypted text
+    :param path_key: path for writing keyword for encrypted text
     :return:
     """
     try:

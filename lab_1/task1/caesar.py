@@ -1,19 +1,22 @@
 import logging
 
+from constants import ALPHABET
+
 logging.basicConfig(level=logging.INFO)
 
 
 def caesar_encrypt(text : str, shift : int) -> str:
     """Encrypts text from file using Caesar method.
-    :param path:
-    "param shift:
-    :return str:
+    :param text: str of text that is needed to encrypt
+    "param shift: shift for caesar method
+    :return: str of encrypted text
     """
     try:
+        new_alphabet = {((value - shift) % 32): key for key, value in ALPHABET.items()}
         encrypted_text = ""
         for char in text:
-            if ord('а') <= ord(char.lower()) <= ord('я'):
-                encrypted_text += chr((ord(char.lower()) + shift - ord('а')) % 32 + ord('а'))
+            if char.lower() in ALPHABET:
+                encrypted_text += new_alphabet[ALPHABET[char.lower()]]
             else:
                 encrypted_text += char
         return encrypted_text

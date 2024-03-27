@@ -6,8 +6,8 @@ logging.basicConfig(level=logging.INFO)
 
 def json_reader(path: str) -> dict:
     """Reads json file into dict.
-    :param path:
-    :return dict:
+    :param path: path to json file
+    :return: dict which contains keys and values from file
     """
     try:
         with open(path, 'r', encoding='utf-8') as file:
@@ -18,8 +18,8 @@ def json_reader(path: str) -> dict:
 
 def txt_reader(path: str) -> str:
     """Reads txt file into str.
-    :param path:
-    :return str:
+    :param path: path to txt file
+    :return: str of text from file
     """
     try:
         with open(path, 'r', encoding='utf-8') as file:

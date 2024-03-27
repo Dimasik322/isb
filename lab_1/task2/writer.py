@@ -7,17 +7,17 @@ from reader import txt_reader
 logging.basicConfig(level=logging.INFO)
 
 
-def write_decrypted(path : str, key : dict, path_encrypt: str, path_key: str) -> None:
-    """Decrypts and writes str and key into files.
-    :param path:
-    :param key:
-    :param path_decrypted:
-    :param path_key:
+def write_decrypted(path : str, key : dict, path_decrypt: str, path_key: str) -> None:
+    """Decrypts text in file and writes str and key into files.
+    :param path: path to txt file that is needed to encrypt
+    :param key: key for decrypting
+    :param path_decrypt: path for writing decrypted text
+    :param path_key: path for writing keyword for decrypted text
     :return:
     """
     try:
         text = replace_dict(txt_reader(path), key)
-        with open(path_encrypt, 'w', encoding='utf-8') as decrypted_file:
+        with open(path_decrypt, 'w', encoding='utf-8') as decrypted_file:
             decrypted_file.write(text)
         with open(path_key, 'w', encoding='utf-8') as key_file:
             key_file.write("Замены:")
@@ -29,8 +29,8 @@ def write_decrypted(path : str, key : dict, path_encrypt: str, path_key: str) ->
 
 def write_frequency(path : str, path_frequency : str) -> None:
     """Does frequency analysis and writes it into file.
-    :param path:
-    :param path_frequency:
+    :param path: path to text file
+    :param path_frequency: path for writing analysis result
     :return:
     """
     try:
