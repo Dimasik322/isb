@@ -4,10 +4,8 @@ import math
 import os
 
 from mpmath import gammainc
+from constants import ROW_SIZE, PATHS, MAX_BLOCK_SIZE, PI
 
-ROW_SIZE = 128
-PATHS = "paths.json"
-PI = [0.2148, 0.3672, 0.2305, 0.1875]
 
 logging.basicConfig(level=logging.INFO)
 
@@ -60,8 +58,8 @@ def bit_row_test(row: str) -> float:
 
 def longest_bit_row_test(row: str) -> float:
     try:
-        block_max_lenghts = {i: 0 for i in range(0, 8)}
-        for step in range(0, ROW_SIZE, 8):
+        block_max_lenghts = {i: 0 for i in range(0, MAX_BLOCK_SIZE)}
+        for step in range(0, ROW_SIZE, MAX_BLOCK_SIZE):
             block = row[step:step+8]
             lenght = 0
             max_lenght = 0
@@ -91,7 +89,20 @@ def longest_bit_row_test(row: str) -> float:
     except Exception as exc:
         logging.error(f"longest bit row test error: {exc}")
 
+def test_row(row: str) -> str:
+    try:
+        result = f"Frequency bit test: {bit_frequncy_test(row)} \n"
+        result += f"Test for identical consecutive bits: {bit_row_test(row)} \n"
+        result += f"Test for the longest sequence of ones in a block: {longest_bit_row_test(row)} \n"
+        return result
+    except Exception as exc:
+        logging.error(f"row test error {exc}")
+
+def write_results(path: str, cpp_row_result: str, java_row_result: str) -> None:
+    with open(path, 'w', encoding='utf-8') as file:
+        file.write(f"C++ Pseudo-random Row Tests:\n{cpp_row_result}\n")
+        file.write(f"Java Pseudo-random Row Tests:\n{java_row_result}")
+
 if __name__ == "__main__":
     paths = json_reader(PATHS)
-
-    print(longest_bit_row_test(txt_reader(paths["cpp_row"])))
+    write_results(paths["results"], test_row(txt_reader(paths["cpp_row"])), test_row(txt_reader(paths["java_row"])))

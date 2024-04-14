@@ -1,0 +1,9 @@
+C++ Pseudo-random Row Tests:
+Frequency bit test: 1.3414686335015948 
+Test for identical consecutive bits: 0.8682433961476089 
+Test for the longest sequence of ones in a block: 0.605164623882379 
+
+Java Pseudo-random Row Tests:
+Frequency bit test: 1.276326390168237 
+Test for identical consecutive bits: 0.8682433961476089 
+Test for the longest sequence of ones in a block: 0.424783264148981 

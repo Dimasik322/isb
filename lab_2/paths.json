@@ -1,6 +1,6 @@
 {
     "folder": "lab_2",
     "cpp_row": "cpp_row.txt",
-    "java_row": "java_row.txt"
-
+    "java_row": "java_row.txt",
+    "results" : "results.txt"
 }

@@ -1,0 +1,4 @@
+ROW_SIZE = 128
+PATHS = "paths.json"
+PI = [0.2148, 0.3672, 0.2305, 0.1875]
+MAX_BLOCK_SIZE = 8
