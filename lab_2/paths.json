@@ -1,4 +1,6 @@
 {
     "folder": "lab_2",
-    "rows": "rows.json"
+    "cpp_row": "cpp_row.txt",
+    "java_row": "java_row.txt"
+
 }
