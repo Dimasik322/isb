@@ -14,7 +14,7 @@
 
 ## Результаты тестов:
 ### C++ Pseudo-random Row Tests:
-* Frequency bit test: 1.276326390168237
+* Frequency bit test: 0.7236736098317631
 * Test for identical consecutive bits: 0.8682433961476089
 * Test for the longest sequence of ones in a block: 0.605164623882379
 
