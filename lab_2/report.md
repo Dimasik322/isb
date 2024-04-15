@@ -2,26 +2,26 @@
 
 ## Генераторы и последовательности
 В первой части лабораторной работы был написан код на языках C++ и Java для генерации псевдо-случайных бинарных последовательностей:
-[C++ Generator](https://github.com/Dimasik322/isb/blob/lab2-var1/lab_2/generator.cpp),
-[Java Generator](https://github.com/Dimasik322/isb/blob/lab2-var1/lab_2/Generator.java).
+* [C++ Generator](https://github.com/Dimasik322/isb/blob/lab2-var1/lab_2/generator.cpp),
+* [Java Generator](https://github.com/Dimasik322/isb/blob/lab2-var1/lab_2/Generator.java).
 
 С помощью этих программ были сгенерированы последовательности:
-C++: 11100101100011000100111110011110010100001100000010000011010110111001011101101010011010000011010111110010000101011110110100001100
-Java: 01100001001001010110011101111001011100011001111010110000101000001010010001111010001011010110011110101011101111001101011100011011
+* C++: 11100101100011000100111110011110010100001100000010000011010110111001011101101010011010000011010111110010000101011110110100001100
+* Java: 01100001001001010110011101111001011100011001111010110000101000001010010001111010001011010110011110101011101111001101011100011011
 
 ## Тесты NIST
 Во второй части лабораторной работы были написаны тесты серии NIST и другие вспомогательные функции для обработки результатов, которые находятся в [файле](https://github.com/Dimasik322/isb/blob/lab2-var1/lab_2/task2.py).
 
 ## Результаты тестов:
-C++ Pseudo-random Row Tests:
-Frequency bit test: 1.276326390168237
-Test for identical consecutive bits: 0.8682433961476089
-Test for the longest sequence of ones in a block: 0.605164623882379
+### C++ Pseudo-random Row Tests:
+* Frequency bit test: 1.276326390168237
+* Test for identical consecutive bits: 0.8682433961476089
+* Test for the longest sequence of ones in a block: 0.605164623882379
 
-Java Pseudo-random Row Tests:
-Frequency bit test: 0.5958830905651779
-Test for identical consecutive bits: 0.36243035628254483
-Test for the longest sequence of ones in a block: 0.805368500839697
+### Java Pseudo-random Row Tests:
+* Frequency bit test: 0.5958830905651779
+* Test for identical consecutive bits: 0.36243035628254483
+* Test for the longest sequence of ones in a block: 0.805368500839697
 
 ## Выводы по результатам тестов:
 Для обеих псевдо-случайных последовательностей, сгенерированных с помощью языков C++ и Java справедливо, что P-значение >= 0.1 для каждого теста, что значит что обе этих последовательности признаются случайными.
