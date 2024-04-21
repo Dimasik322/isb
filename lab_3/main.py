@@ -16,5 +16,7 @@ def json_reader(path: str) -> dict:
 
 if __name__ == '__main__':
     paths = json_reader(PATHS)
-    crypto_system = HybridCryptography(paths["sym_path"], paths["public_path"], paths["private_path"])
-    crypto_system.generate_keys(128)
+    crypto_system = HybridCryptography(paths["sym_path"], paths["private_path"], paths["public_path"])
+    crypto_system.generate_keys(32)
+    crypto_system.encrypt(paths["text"], paths["encrypted_text"])
+    #crypto_system.decrypt(paths["encrypted_text"], paths["decrypted_text"])
