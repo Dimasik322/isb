@@ -41,12 +41,12 @@ class SymmetricCryptography:
 
 
     def generate_key(self, size: int) -> bytes:
-        key = os.urandom(32)
+        key = os.urandom(size)
         return key
     
 
     def encrypt(self, data: bytes, key: bytes) -> bytes:
-        padder = cryptography.hazmat.primitives.padding.ANSIX923(128).padder()
+        padder = cryptography.hazmat.primitives.padding.ANSIX923(64).padder()
         padded_text = padder.update(data)+padder.finalize()
         iv = os.urandom(16)
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
@@ -60,7 +60,7 @@ class SymmetricCryptography:
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
         decryptor = cipher.decryptor()
         dc_data = decryptor.update(data) + decryptor.finalize()
-        unpadder = cryptography.hazmat.primitives.padding.ANSIX923(128).unpadder()
+        unpadder = cryptography.hazmat.primitives.padding.ANSIX923(64).unpadder()
         unpadded_dc_text = unpadder.update(dc_data)# + unpadder.finalize()
         return unpadded_dc_text
 
@@ -124,6 +124,7 @@ class HybridCryptography:
 
     
     def generate_keys(self, size: int) -> None:
+        print(size)
         symmetric_key = self.symmetric.generate_key(size)
         asymmetric_key = self.asymmetric.generate_key(size)
         self.asymmetric.serialize_key(asymmetric_key)
