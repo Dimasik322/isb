@@ -9,11 +9,11 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Functions:
-    """Class that contains additional functions 
+    """Class that contains additional functions
     for reading and writing files and parsing arguments.
 
     """
-    
+
     def write_bytes(path: str, data: bytes) -> None:
         """Writes bytes into txt file.
         :param path: path to txt file.
@@ -48,7 +48,7 @@ class Functions:
             with open(path, "w") as file:
                 data = file.write(data)
         except Exception as exc:
-            logging.error(f"Writing string data to file error: {exc}\n") 
+            logging.error(f"Writing string data to file error: {exc}\n")
 
     def read_txt(path: str) -> str:
         """Reads srting from txt file.
@@ -86,34 +86,55 @@ class Functions:
                 "-gen",
                 "--generation",
                 action="store_true",
-                help="Запускает режим генерации ключей по заданному ключу(128/192/256)",
+                help="Sets key generation mode",
             )
             group.add_argument(
                 "-enc",
                 "--encryption",
                 action="store_true",
-                help="Запускает режим шифрования файла по заданному пути",
+                help="Sets encryption mode",
             )
             group.add_argument(
                 "-dec",
                 "--decryption",
                 action="store_true",
-                help="Запускает режим дешифрования файла по заданному пути",
+                help="Sets decryption mode",
             )
             group.add_argument(
-                "-len", type=int, default=256, help="Задает длину ключа для генерации"
+                "-len", type=int, default=256, help="Sets key len(128|192|256)"
+            )
+            group.add_argument(
+                "-key", action="store_true", help="Sets custom paths to keys mode"
+            )
+            group.add_argument(
+                "-sym_pth",
+                type=str,
+                default=paths["sym_path"],
+                help="Sets path to symmetric key",
+            )
+            group.add_argument(
+                "-private_pth",
+                type=str,
+                default=paths["private_path"],
+                help="Sets path to private key",
+            )
+            group.add_argument(
+                "-public_pth",
+                type=str,
+                default=paths["public_path"],
+                help="Sets path to public key",
             )
             group.add_argument(
                 "-pth",
                 type=str,
                 default=paths["text"],
-                help="Задает путь файля для шифрования",
+                help="Sets path to text to encypt",
             )
             group.add_argument(
                 "-cpt",
                 type=str,
                 default=paths["encrypted_text"],
-                help="Задает путь файля для дешифрования",
+                help="Sets path to encrypted text",
             )
             args = parser.parse_args()
             return args

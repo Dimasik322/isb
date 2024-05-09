@@ -32,6 +32,19 @@ class HybridCryptography:
         self.symmetric = SymmetricCryptography(symmetric_key_path)
         self.asymmetric = AsymmetricCryptography(private_key_path, public_key_path)
 
+    def set_paths(
+        self, symmetric_key_path: str, private_key_path: str, public_key_path: str
+    ) -> None:
+        """Sets new paths to keys.
+        :param symmetric_key_path: path for saving symmetrical key.
+        :param private_key_path: path for saving private key.
+        :param public_key_path: path for saving public key.
+        :return: None.
+        """
+        self.asymmetric.private_key_path = private_key_path
+        self.asymmetric.public_key_path = public_key_path
+        self.symmetric.key_path = symmetric_key_path
+
     def generate_keys(self, size: int) -> None:
         """Generates key for hybrid method.
         :param size: size of keys in bits.

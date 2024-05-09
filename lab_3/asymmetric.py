@@ -76,7 +76,7 @@ class AsymmetricCryptography:
                 )
         except Exception as exc:
             logging.error(f"Asymmetrical public key serialization error: {exc}\n")
-    
+
     def deserialize_private_key(self) -> rsa.RSAPrivateKey:
         """Deserializes private key for asymmetrical method.
         :return: private key.

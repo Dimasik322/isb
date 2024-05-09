@@ -76,3 +76,4 @@ class SymmetricCryptography:
             return unpadded_dc_data
         except Exception as exc:
             logging.error(f"Symmetrical decryption error: {exc}\n")
+ 
