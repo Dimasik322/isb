@@ -2,6 +2,7 @@ import os
 import logging
 import cryptography.hazmat.primitives
 
+from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
@@ -43,15 +44,12 @@ class SymmetricCryptography:
         :return: bytes of encrypted data.
         """
         try:
-            padder = cryptography.hazmat.primitives.padding.ANSIX923(
-                algorithms.Camellia.block_size
-            ).padder()
-            padded_text = padder.update(data) + padder.finalize()
-
             iv = os.urandom(16)
             cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
             encryptor = cipher.encryptor()
-            c_text = encryptor.update(padded_text) + encryptor.finalize()
+            padder = padding.PKCS7(256).padder()
+            padded_text = padder.update(data) + padder.finalize()
+            c_text = iv + encryptor.update(padded_text) + encryptor.finalize()
             return c_text
         except Exception as exc:
             logging.error(f"Symmetrical encryption error: {exc}\n")
@@ -63,16 +61,13 @@ class SymmetricCryptography:
         :return: bytes of decrypted data.
         """
         try:
-            iv = os.urandom(16)
+            iv = data[:16]
+            data = data[16:]
             cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv))
             decryptor = cipher.decryptor()
             dc_data = decryptor.update(data) + decryptor.finalize()
-
-            unpadder = cryptography.hazmat.primitives.padding.ANSIX923(
-                algorithms.Camellia.block_size
-            ).unpadder()
+            unpadder = padding.PKCS7(128).unpadder()
             unpadded_dc_data = unpadder.update(dc_data) + unpadder.finalize()
-
             return unpadded_dc_data
         except Exception as exc:
             logging.error(f"Symmetrical decryption error: {exc}\n")
