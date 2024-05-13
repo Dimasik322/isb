@@ -1,6 +1,5 @@
 import os
 import logging
-import cryptography.hazmat.primitives
 
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes

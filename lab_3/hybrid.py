@@ -3,7 +3,7 @@ import logging
 from cryptography.hazmat.primitives import padding, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 
-from functions import Functions
+from functions import ReadWriteParseFunctions
 from symmetric import SymmetricCryptography
 from asymmetric import AsymmetricCryptography
 
@@ -56,9 +56,9 @@ class HybridCryptography:
             symmetric_key = self.symmetric.generate_key(size)
             asymmetric_key = self.asymmetric.generate_key(size)
             private_key, public_key = asymmetric_key
-            self.asymmetric.serialize_private_key(private_key)
-            self.asymmetric.serialize_public_key(public_key)
-            Functions.write_bytes(
+            ReadWriteParseFunctions.serialize_private_key(self.asymmetric.private_key_path, private_key)
+            ReadWriteParseFunctions.serialize_public_key(self.asymmetric.public_key_path, public_key)
+            ReadWriteParseFunctions.write_bytes(
                 self.symmetric.key_path,
                 public_key.encrypt(
                     symmetric_key,
@@ -79,13 +79,13 @@ class HybridCryptography:
         :return: None.
         """
         try:
-            text = bytes(Functions.read_txt(text_path), "UTF-8")
-            key = self.asymmetric.deserialize_private_key()
+            text = bytes(ReadWriteParseFunctions.read_txt(text_path), "UTF-8")
+            key = ReadWriteParseFunctions.deserialize_private_key(self.asymmetric.private_key_path)
             symmetric_key = self.asymmetric.decrypt(
-                Functions.read_bytes(self.symmetric.key_path), key
+                ReadWriteParseFunctions.read_bytes(self.symmetric.key_path), key
             )
             c_text = self.symmetric.encrypt(text, symmetric_key)
-            Functions.write_bytes(encrypted_text_path, c_text)
+            ReadWriteParseFunctions.write_bytes(encrypted_text_path, c_text)
         except Exception as exc:
             logging.error(f"Hybrid encryption error: {exc}\n")
 
@@ -96,12 +96,13 @@ class HybridCryptography:
         :return: None.
         """
         try:
-            c_data = Functions.read_bytes(text_path)
-            key = self.asymmetric.deserialize_private_key()
+            c_data = ReadWriteParseFunctions.read_bytes(text_path)
+            key = ReadWriteParseFunctions.deserialize_private_key(self.asymmetric.private_key_path)
             symmetric_key = self.asymmetric.decrypt(
-                Functions.read_bytes(self.symmetric.key_path), key
+                ReadWriteParseFunctions.read_bytes(self.symmetric.key_path), key
             )
             dc_data = self.symmetric.decrypt(c_data, symmetric_key)
-            Functions.write_bytes(decrypted_text_path, dc_data)
+            ReadWriteParseFunctions.write_bytes(decrypted_text_path, dc_data)
         except Exception as exc:
             logging.error(f"Hybrid decryption error: {exc}\n")
+ 

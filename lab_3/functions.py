@@ -2,17 +2,87 @@ import json
 import logging
 import argparse
 
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.serialization import (
+    load_pem_public_key,
+    load_pem_private_key,
+)
+
 from constants import PATHS
 
 
 logging.basicConfig(level=logging.INFO)
 
 
-class Functions:
+class ReadWriteParseFunctions:
     """Class that contains additional functions
     for reading and writing files and parsing arguments.
-
     """
+    
+    def serialize_private_key(path: str, private_key: rsa.RSAPrivateKey) -> None:
+        """Serializes private key for asymmetrical method.
+        :param path: path to key to serialize.
+        :param private_key: private key object.
+        :return: None.
+        """
+        try:
+            with open(path, "wb") as private_out:
+                private_out.write(
+                    private_key.private_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PrivateFormat.TraditionalOpenSSL,
+                        encryption_algorithm=serialization.NoEncryption(),
+                    )
+                )
+        except Exception as exc:
+            logging.error(f"Asymmetrical private key serialization error: {exc}\n")
+
+    def serialize_public_key(path: str, public_key: rsa.RSAPublicKey) -> None:
+        """Serializes public key for asymmetrical method.
+        :param path: path to key to serialize.
+        :param public_key: public key object.
+        :return: None.
+        """
+        try:
+            with open(path, "wb") as public_out:
+                public_out.write(
+                    public_key.public_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PublicFormat.SubjectPublicKeyInfo,
+                    )
+                )
+        except Exception as exc:
+            logging.error(f"Asymmetrical public key serialization error: {exc}\n")
+
+    def deserialize_private_key(path) -> rsa.RSAPrivateKey:
+        """Deserializes private key for asymmetrical method.
+        :param path: path to key to deserialize.
+        :return: private key.
+        """
+        try:
+            with open(path, "rb") as pem_in:
+                private_bytes = pem_in.read()
+                d_private_key = load_pem_private_key(
+                    private_bytes,
+                    password=None,
+                )
+            return d_private_key
+        except Exception as exc:
+            logging.error(f"Asymmetrical private key deserialization error: {exc}\n")
+
+    def deserialize_public_key(path) -> rsa.RSAPublicKey:
+        """Deserializes public key for asymmetrical method.
+        :param path: path to key to deserialize.
+        :return: public key.
+        """
+        try:
+            with open(path, "rb") as pem_in:
+                public_bytes = pem_in.read()
+                d_public_key = load_pem_public_key(public_bytes)
+            return d_public_key
+        except Exception as exc:
+            logging.error(f"Asymmetrical public key deserialization error: {exc}\n")
 
     def write_bytes(path: str, data: bytes) -> None:
         """Writes bytes into txt file.
@@ -79,7 +149,7 @@ class Functions:
         :return: Namespace object with parsed arguments.
         """
         try:
-            paths = Functions.json_reader(PATHS)
+            paths = ReadWriteParseFunctions.json_reader(PATHS)
             parser = argparse.ArgumentParser()
             group = parser.add_argument_group()
             group.add_argument(
@@ -140,3 +210,4 @@ class Functions:
             return args
         except Exception as exc:
             logging.error(f"Parsing error: {exc}\n")
+ 
