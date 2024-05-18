@@ -1,6 +1,7 @@
 from functions import json_reader, write_txt
 from task import HashOperating
 from constants import PATHS, DATA
+from app import application
 
 
 if __name__ == "__main__":
