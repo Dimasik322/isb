@@ -1,6 +1,5 @@
 import sys
 import logging
-import re
 
 from PyQt5.QtWidgets import (
     QMainWindow,
@@ -9,14 +8,16 @@ from PyQt5.QtWidgets import (
     QWidget,
     QLabel,
     QLineEdit,
+    QCheckBox,
 )
 from PyQt5.QtGui import QPixmap
 
 from card_hash_operate import HashOperating
-
-
 from functions import ReadWrite
 from constants import PATHS, DATA
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 class MainWindow(QMainWindow):
@@ -56,6 +57,10 @@ class MainWindow(QMainWindow):
         self.card_id_button = QPushButton("УЗНАТЬ", self)
         self.card_id_button.setGeometry(250, 130, 100, 50)
         self.card_id_button.setStyleSheet(self.css_button)
+
+        self.card_id_check = QCheckBox("СОХРАНИТЬ", self)
+        self.card_id_check.setGeometry(354, 130, 153, 50)
+        self.card_id_check.setStyleSheet(self.css_button)
 
         self.luhn_label = QLabel("Проверить номер карты по алгоритму Луна", self)
         self.luhn_label.setGeometry(250, 250, 390, 50)
@@ -136,15 +141,19 @@ class MainWindow(QMainWindow):
         :return: None.
         """
         try:
+            self.card_id.setText("Вычисление...")
             hash = self.hash.text()
             last_digits = self.last_digits.text()
-            bin = self.bin.text()
-
-            card_id = HashOperating.get_id_by_hash(hash, last_digits, tuple(bin))
+            bin = self.bin.text().split(",")
+            card_id = HashOperating.get_id_by_hash(hash, last_digits, bin)
             if card_id == None:
                 self.card_id.setText("Не удалось найти номер карты")
             else:
                 self.card_id.setText(card_id)
+                if self.card_id_check.isChecked():
+                    ReadWrite.write_txt(
+                        ReadWrite.json_reader(PATHS)["card_id_path"], card_id
+                    )
         except Exception as exc:
             logging.error(f"Card id button click error: {exc}\n")
 
@@ -189,3 +198,4 @@ def application():
 
 if __name__ == "__main__":
     application()
+ 
